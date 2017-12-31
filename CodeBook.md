@@ -53,28 +53,28 @@ Finally a Fast Fourier Transform (FFT) was applied to some of these signals prod
 ## Variables in finalData data frame
 There are 81 columns in finalData -- one to identify the participant, one to identify the activity, and 79 for measured data variables.
 
-*ParticipantID*: Integer from 1 to 30 (thirty participants, also called subjects)
+*ParticipantID*: Integer from 1 to 30 (thirty participants, also called subjects)   
 *ActivityName*: From WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING
 
 The names of measurement data variables are constructed from the parts below.  See Feature Selection above for more detail.
 
 ALL MEASUREMENTS ARE NORMALIZED AND BOUNDED WITHIN [-1, 1].
 
-*LinearAcceleration*: Measured using accelerometer, originally measured in standard gravity units "g"
-*AngularVelocity*: Measured using gyroscope, originally measured in radians per second
+*LinearAcceleration*: Measured using accelerometer, originally measured in standard gravity units "g"  
+*AngularVelocity*: Measured using gyroscope, originally measured in radians per second  
 *Jerk*: Calculated from the derivative of LinearAcceleration or Angular Velocity with respect to time
 
-*TimeDomain*: Based on the original measurements
+*TimeDomain*: Based on the original measurements  
 *FrequencyDomain*: Based on the Fast Fourier Transform of original measurements
 
-*Body*: Based on the motion of the participant
+*Body*: Based on the motion of the participant  
 *Gravity*: Based on the effect of gravity
 
-*Magnitude*: Magnitude of three dimensional signal
+*Magnitude*: Magnitude of three dimensional signal  
 *.X or .Y or .Z*: Identifies axis of measurement (one-dimensional)
 
-*.Mean*: Mean measurement for that trial
-*.StdDev*: Standard deviation of the measurements for that trial
+*.Mean*: Mean measurement for that trial  
+*.StdDev*: Standard deviation of the measurements for that trial  
 *.WeightedMeanFrequency*: Weighted average of frequency components
 
 ## Information in DataAverages data frame

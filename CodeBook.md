@@ -32,6 +32,7 @@ Use of this dataset in publications must be acknowledged by referencing the foll
 This dataset is distributed AS-IS and no responsibility implied or explicit can be addressed to the authors or their institutions for its use or misuse. Any commercial use is prohibited.
 
 Jorge L. Reyes-Ortiz, Alessandro Ghio, Luca Oneto, Davide Anguita. November 2012.
+
 ## Data Selection
 The original data has 561 variables.  This project selected 79 of them – all the variables that represent a mean or a standard deviation (containing "mean" or "std" in the variable name).  Variables with "meanFreq" in their names represent weighted averages, so these were retained.  However, variables with both "mean" and "angle" in their names represent an angle between two vectors.  The variables are not means themselves and were removed.  
 
@@ -39,7 +40,7 @@ Each set of measurements comes from measuring one of thirty participants (also c
 
 The R script run_analysis.R creates a tidy data set in a data frame called finalData, which shows the activity and participant ID for each selected set of measurements.  The variable names were changed to make them easier to understand.
 
-The R script also creates a second, independent tidy data set in a data frame called DataAverages.  This data frame is exported to a file DataAverages.txt in the user's working directory.  DataAverages shows the average for each measured variable in finalData for each of the six activities and each of the thirty participants.
+The R script also creates a second, independent tidy data set in a data frame called DataAverages.  This data frame is exported to a file DataAverages.txt in the user's working directory.  DataAverages shows the average for each measured variable in finalData for each of thirty participants for each of the six activities (that is, for each combination of participant and activity).
 
 ## Feature Selection
 ** Edited information from zip folder referenced above.**
@@ -81,4 +82,6 @@ ALL MEASUREMENTS ARE NORMALIZED AND BOUNDED WITHIN [-1, 1].
 
 DataAverages is a tidy data set meeting the requirements of part 5 of the project directions.
 
-The columns of DataAverages are the same as the columns of finalData.  There are 36 rows -- one for each activity followed by one for each participant.  Each row shows the averages of each measured variable from finalData for each activity and for each participant.  The DataAverages data frame is exported via write.table as DataAverages.txt in the user's working directory.  The variable names are the same as in finalData.
+DataAverages has 180 rows, one for each combination of participant (30) and activity (6).  DataAverages has the same number of columns as finalData, and the column names are the same.  However, in DataAverages the columns for measured variables represent means.  In finalData, each participant has several lines for a given activity.  DataAverages shows the average of each measured variable for all instances of a particular activity performed by a particular participant.   
+
+The DataAverages data frame is exported via write.table as DataAverages.txt in the user's working directory.

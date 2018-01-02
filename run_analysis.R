@@ -73,32 +73,31 @@ names(finalData)[2] <- "ActivityName"
 
 #Goal: create "a second, independent tidy data set with the average 
 #of each variable for each activity and each subject."
-#Initialize the data frames for two new data set, 
-#one for mean of each data column by activity (6 rows) and one for mean of each data column by participant (30 rows).
-#Need same number of columns as finalData (one column for each type of measurement data,
-#one column for activity name, one column for participant ID number).
+#Initialize the data frame for the new data set, 
+#One row for each combination of activity and participants (6 activities times 30 participants = 180 rows). 
+#Same number of columns as finalData.
+#Make 30 blocks of 6 rows each.
+#Each block has all mean measurements in all activities for a particular participant.
+#I decided to use same column headings in DataAverages as in finalData, 
+#but in DataAverages the data values represent averages.
 
-ActivityMeans <- data.frame(matrix(nrow = 6, ncol = ncol(finalData)))
-SubjectMeans <- data.frame(matrix(nrow = 30, ncol = ncol(finalData)))
-
-#Find means for each variable by activity and by participant.
-#Measurement variables start in column 3 of finalData.
-#First two columns indicate activity name and participant ID number.
-for (i in 3:ncol(ActivityMeans)){
-    ActivityMeans[ , i] <- tapply(finalData[ , i], finalData$ActivityName, mean)
-}
-ActivityMeans[ , 2] <- ActivityNames$V2
-
-for (i in 3:ncol(SubjectMeans)){
-    SubjectMeans[ , i] <- tapply(finalData[ , i], finalData$ParticipantID, mean)
-}
-SubjectMeans[ , 1] <- paste("Participant", 1:30)
-
-DataAverages <- rbind(ActivityMeans, SubjectMeans)
+DataAverages <- data.frame(matrix(nrow = 6*30, ncol = ncol(finalData)))
 names(DataAverages) <- names(finalData)
-rownames(DataAverages) <- c(as.character(ActivityNames$V2), paste("Participant", 1:30))
+
+#Label combinations of Participant IDs and Activities
+#Make 30 blocks of 6 rows each.
+#Each block uses a single participant ID and all 6 activities.
+DataAverages$ParticipantID <- rep(1:30, each = 6)
+DataAverages$ActivityName <- rep(ActivityNames$V2, times = 30)
+
+#Find means for each variable by combination of participant and activity.
+#Measurement variables start in column 3 of finalData.
+#First two columns indicate participant ID number and activity name.
+
+for (i in 3:ncol(DataAverages)){
+    DataAverages[ , i] <- as.vector(tapply(finalData[ , i], 
+                                    list(finalData$ActivityName, finalData$ParticipantID),                                    mean))
+}
 
 #export DataAverages to txt file in working directory
 write.table(DataAverages, "DataAverages.txt", row.names = FALSE)
-
-

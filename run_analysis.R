@@ -96,7 +96,8 @@ DataAverages$ActivityName <- rep(ActivityNames$V2, times = 30)
 
 for (i in 3:ncol(DataAverages)){
     DataAverages[ , i] <- as.vector(tapply(finalData[ , i], 
-                                    list(finalData$ActivityName, finalData$ParticipantID),                                    mean))
+                                    list(finalData$ActivityName, finalData$ParticipantID), 
+                                    mean))
 }
 
 #export DataAverages to txt file in working directory
